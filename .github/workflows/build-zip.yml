@@ -1,0 +1,42 @@
+name: Build Foundry Module ZIP
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "module.json"
+      - "README.md"
+      - ".github/workflows/build-zip.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate manifest
+        run: python -m json.tool module.json > /dev/null
+
+      - name: Build Foundry install archive
+        run: |
+          rm -f skyhorn-audio-stack.zip
+          zip -9 skyhorn-audio-stack.zip module.json README.md
+          unzip -l skyhorn-audio-stack.zip
+
+      - name: Commit archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add skyhorn-audio-stack.zip
+          if git diff --cached --quiet; then
+            echo "Archive is already current."
+          else
+            git commit -m "Build Foundry module archive"
+            git push
+          fi
