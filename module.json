@@ -1,0 +1,60 @@
+{
+  "id": "skyhorn-audio-stack",
+  "title": "Skyhorn Audio Stack",
+  "description": "Foundry VTT v14 meta-module for the Skyhorn Lighthouse campaign. It contains no audio or game content; it declares a curated audio-module stack so Foundry can offer to install required and recommended packages together.",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Skyhorn Campaign Bundle"
+    }
+  ],
+  "url": "https://github.com/Quarky/skyhorn-audio-stack",
+  "manifest": "https://raw.githubusercontent.com/Quarky/skyhorn-audio-stack/main/module.json",
+  "download": "https://raw.githubusercontent.com/Quarky/skyhorn-audio-stack/main/skyhorn-audio-stack.zip",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      {
+        "id": "moulinette",
+        "type": "module"
+      },
+      {
+        "id": "moulinette-soundboards",
+        "type": "module"
+      },
+      {
+        "id": "ambience-forge",
+        "type": "module"
+      },
+      {
+        "id": "the-sound-of-silence",
+        "type": "module"
+      },
+      {
+        "id": "tabletop-rpg-music",
+        "type": "module"
+      }
+    ],
+    "recommends": [
+      {
+        "id": "soundbrett",
+        "type": "module"
+      },
+      {
+        "id": "yt-jukebox",
+        "type": "module"
+      },
+      {
+        "id": "syrinscape-control",
+        "type": "module"
+      },
+      {
+        "id": "soundpainter-conductor",
+        "type": "module"
+      }
+    ]
+  }
+}
