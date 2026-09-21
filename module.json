@@ -1,8 +1,8 @@
 {
   "id": "skyhorn-audio-stack",
   "title": "Skyhorn Audio Stack",
-  "description": "Foundry VTT v14 meta-module for the Skyhorn Lighthouse campaign. It contains no audio or game content; it declares a curated audio-module stack so Foundry can offer to install required and recommended packages together.",
-  "version": "1.0.0",
+  "description": "Foundry VTT v13 meta-module for the Skyhorn Lighthouse campaign. It contains no audio or game content; it declares a curated audio-module stack so Foundry can offer to install required and recommended packages together.",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "Skyhorn Campaign Bundle"
@@ -12,8 +12,9 @@
   "manifest": "https://raw.githubusercontent.com/Quarky/skyhorn-audio-stack/main/module.json",
   "download": "https://raw.githubusercontent.com/Quarky/skyhorn-audio-stack/main/skyhorn-audio-stack.zip",
   "compatibility": {
-    "minimum": "14",
-    "verified": "14"
+    "minimum": "13",
+    "verified": "13",
+    "maximum": "13"
   },
   "relationships": {
     "requires": [
