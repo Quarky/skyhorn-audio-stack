@@ -1,6 +1,6 @@
 # Skyhorn Audio Stack
 
-A small **Foundry VTT v14 meta-module** for the Skyhorn Lighthouse campaign.
+A small **Foundry VTT v13 meta-module** for the Skyhorn Lighthouse campaign.
 
 It contains **no copyrighted audio and no game content**. Its purpose is to use Foundry's package-relationship system so one manifest can point Foundry at the audio tools used by the campaign.
 
@@ -49,11 +49,7 @@ The install archive is hosted at:
 
 `https://raw.githubusercontent.com/Quarky/skyhorn-audio-stack/main/skyhorn-audio-stack.zip`
 
-To publish a future update:
-
-1. Change `version` in `module.json`.
-2. Rebuild `skyhorn-audio-stack.zip` so it contains `module.json` and this README at the **root of the ZIP**.
-3. Replace both files on `main`.
+A GitHub Actions workflow rebuilds the ZIP when the manifest or README changes.
 
 ## Package layout inside the ZIP
 
@@ -66,5 +62,5 @@ Foundry installs those into its own `Data/modules/skyhorn-audio-stack/` director
 
 ## Version
 
-- Skyhorn Audio Stack: **1.0.0**
-- Target Foundry VTT: **v14**
+- Skyhorn Audio Stack: **1.0.1**
+- Target Foundry VTT: **v13**
