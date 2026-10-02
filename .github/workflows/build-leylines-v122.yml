@@ -36,6 +36,37 @@ jobs:
       - name: Build and validate complete Foundry package
         run: python3 build_leylines_v122.py
 
+      - name: Installer fresh and upgrade regression
+        run: |
+          set -euo pipefail
+          PKG="$PWD/build/Ravnica_Leylines_Audio_Director_v1.2.2"
+          FRESH="$RUNNER_TEMP/leylines-fresh/Data"
+          UPGRADE="$RUNNER_TEMP/leylines-upgrade/Data"
+
+          mkdir -p "$FRESH"
+          FOUNDRY_V14_DATA_DIR="$FRESH" bash "$PKG/install.sh"
+          test -f "$FRESH/modules/ravnica-leylines-audio-director/module.json"
+          python3 - "$FRESH/modules/ravnica-leylines-audio-director/module.json" <<'PY'
+          import json,sys
+          d=json.load(open(sys.argv[1]))
+          assert d["version"]=="1.2.2"
+          PY
+
+          mkdir -p "$UPGRADE/modules/ravnica-leylines-audio-director"
+          printf '{"id":"ravnica-leylines-audio-director","version":"1.2.1"}\n' > "$UPGRADE/modules/ravnica-leylines-audio-director/module.json"
+          echo "old-install-marker" > "$UPGRADE/modules/ravnica-leylines-audio-director/OLD_MARKER.txt"
+          FOUNDRY_V14_DATA_DIR="$UPGRADE" bash "$PKG/install.sh"
+          test -f "$UPGRADE/modules/ravnica-leylines-audio-director/module.json"
+          python3 - "$UPGRADE/modules/ravnica-leylines-audio-director/module.json" <<'PY'
+          import json,sys
+          d=json.load(open(sys.argv[1]))
+          assert d["version"]=="1.2.2"
+          PY
+          BACKUP="$(find "$UPGRADE/module-backups" -maxdepth 1 -type d -name 'ravnica-leylines-audio-director_*' | head -1)"
+          test -n "$BACKUP"
+          test -f "$BACKUP/OLD_MARKER.txt"
+          test ! -f "$UPGRADE/modules/ravnica-leylines-audio-director/OLD_MARKER.txt"
+
       - name: Verify output
         run: |
           unzip -t dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip
