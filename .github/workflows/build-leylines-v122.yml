@@ -1,0 +1,58 @@
+name: Build Leylines Audio Director v1.2.2
+
+on:
+  push:
+    branches:
+      - leylines-audio-v1.2.2-build
+    paths:
+      - build_leylines_v122.py
+      - .github/workflows/build-leylines-v122.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out build branch
+        uses: actions/checkout@v4
+
+      - name: Install media and archive tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg zip
+
+      - name: Build and validate complete Foundry package
+        run: python3 build_leylines_v122.py
+
+      - name: Verify output
+        run: |
+          unzip -t dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip
+          cat dist/Leylines_Audio_Director_v1.2.2_QA.txt
+          cat dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ravnica_Leylines_Audio_Director_v1.2.2
+          path: |
+            dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip
+            dist/Leylines_Audio_Director_v1.2.2_QA.txt
+            dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt
+            dist/RELEASE_NOTES.md
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Publish or refresh release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="leylines-audio-v1.2.2"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG"               dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip               dist/Leylines_Audio_Director_v1.2.2_QA.txt               dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt               --clobber
+          else
+            gh release create "$TAG"               dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip               dist/Leylines_Audio_Director_v1.2.2_QA.txt               dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt               --target "$GITHUB_SHA"               --title "Ravnica Leylines Audio Director v1.2.2"               --notes-file dist/RELEASE_NOTES.md
+          fi
