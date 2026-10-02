@@ -303,7 +303,7 @@ def qa(data):
     p("ZIP integrity")
     text="Ravnica Leylines Audio Director v%s — QA\n%s\n\n%s\n\nRuntime note: live Foundry browser/audio-device behavior must still be confirmed in the user's Foundry v14 world.\n"%(VERSION,"="*60,"\n".join(out))
     write_text(DIST/qa_name,text)
-    write_text(DIST/"Ravnica_Leylines_Audio_Director_v%s_SHA256.txt"%VERSION,sha256(zp)+"  "+zip_name+"\n")
+    write_text(DIST/("Ravnica_Leylines_Audio_Director_v%s_SHA256.txt"%VERSION),sha256(zp)+"  "+zip_name+"\n")
     write_text(DIST/"RELEASE_NOTES.md","""# Ravnica Leylines Audio Director v1.2.2
 
 Complete Foundry v14 / D&D5e 5.3.3 package.
