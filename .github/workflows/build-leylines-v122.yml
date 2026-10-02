@@ -46,6 +46,7 @@ jobs:
             dist/Leylines_Audio_Director_v1.2.2_QA.txt
             dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt
             dist/RELEASE_NOTES.md
+            dist/MTGFoundry_Audio_Library_Current_v4.json
           if-no-files-found: error
           compression-level: 0
 
@@ -55,7 +56,7 @@ jobs:
         run: |
           TAG="leylines-audio-v1.2.2"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip dist/Leylines_Audio_Director_v1.2.2_QA.txt dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt --clobber
+            gh release upload "$TAG" dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip dist/Leylines_Audio_Director_v1.2.2_QA.txt dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt dist/MTGFoundry_Audio_Library_Current_v4.json --clobber
           else
-            gh release create "$TAG" dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip dist/Leylines_Audio_Director_v1.2.2_QA.txt dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt --target "$GITHUB_SHA" --title "Ravnica Leylines Audio Director v1.2.2" --notes-file dist/RELEASE_NOTES.md
+            gh release create "$TAG" dist/Ravnica_Leylines_Audio_Director_v1.2.2_FoundryV14.zip dist/Leylines_Audio_Director_v1.2.2_QA.txt dist/Ravnica_Leylines_Audio_Director_v1.2.2_SHA256.txt dist/MTGFoundry_Audio_Library_Current_v4.json --target "$GITHUB_SHA" --title "Ravnica Leylines Audio Director v1.2.2" --notes-file dist/RELEASE_NOTES.md
           fi
