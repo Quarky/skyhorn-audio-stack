@@ -228,7 +228,8 @@ assert len([x for x in os.listdir(root+"/assets/audio/background") if x.lower().
 assert len([x for x in os.listdir(root+"/assets/audio/fx") if x.lower().endswith(".mp3")])==44
 PY
 echo "Installed $MODULE_ID v$VERSION successfully."
-[[ -n "$BACKUP" ]] && echo "Backup: $BACKUP"
+if [[ -n "$BACKUP" ]]; then echo "Backup: $BACKUP"; fi
+exit 0
 '''
 
 README='''# Ravnica Leylines Audio Director v1.2.2
